@@ -11,7 +11,7 @@ function App() {
     async function fetchData() {
       try {
         const response = await axios.get("http://localhost:8000");
-        setApi(response.data);
+        setApi(JSON.stringify(response.data));
       } catch (error) {
         console.error(error);
       }
@@ -20,22 +20,18 @@ function App() {
     fetchData();
   }, []);
 
- async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit(e) {
+   
     const obj = {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-try {
- const response =  await axios.post("http://localhost:8000/form",obj)
-  console.log(response);
- setApi(response.data)
-} catch (error) {
-  
-}
-
-
-   
+    try {
+      const response = await axios.post("http://localhost:8000/form", obj);
+    
+      setApi(JSON.stringify(response.data));
+      
+    } catch (error) {}
   }
 
   return (
